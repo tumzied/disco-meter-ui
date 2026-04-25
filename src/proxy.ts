@@ -11,7 +11,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const token = request.cookies.get("disco_token")?.value;
+  const token = request.cookies.get("desco_token")?.value;
   const session = token ? verifyToken(token) : null;
 
   if (!session) {

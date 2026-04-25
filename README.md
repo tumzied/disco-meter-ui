@@ -66,7 +66,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 1. Create a free PostgreSQL database at [neon.tech](https://neon.tech)
 2. Push this repo to GitHub
-3. Import the repo on [vercel.com](https://vercel.com) — set the **Root Directory** to `disco-app`
+3. Import the repo on [vercel.com](https://vercel.com) — set the **Root Directory** to `desco-app`
 4. Add `DATABASE_URL` and `JWT_SECRET` as environment variables in the Vercel project settings
 5. Deploy — Vercel runs `npm run build` which auto-generates the Prisma client
 

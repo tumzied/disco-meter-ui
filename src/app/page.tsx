@@ -1,6 +1,14 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://desco-meter.vercel.app";
+
+export const metadata: Metadata = {
+  alternates: { canonical: siteUrl },
+  openGraph: { url: siteUrl },
+};
 
 export default async function LandingPage() {
   const session = await getSession();
@@ -47,8 +55,24 @@ export default async function LandingPage() {
     },
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "DESCO Meter Dashboard",
+    url: siteUrl,
+    description:
+      "A free personal dashboard to monitor DESCO prepaid electricity meters — live balance, consumption trends, and recharge history.",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "BDT" },
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Navbar */}
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
         <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">

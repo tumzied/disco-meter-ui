@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 
 const SECRET = process.env.JWT_SECRET!;
-const COOKIE = "disco_token";
+const COOKIE = "desco_token";
 
 export type JwtPayload = { userId: number; email: string };
 
