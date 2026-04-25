@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DESCO Meter Dashboard
 
-## Getting Started
+An unofficial personal dashboard for monitoring DESCO prepaid electricity meters in Bangladesh. Track live balance, consumption trends, and recharge history — all in one place.
 
-First, run the development server:
+## Features
+
+- **Live balance** — remaining balance fetched directly from DESCO on every load
+- **Consumption charts** — daily and monthly kWh charts with cost breakdown and date range filters
+- **Recharge history** — full transaction log with token numbers, operators, VAT, and service charges
+- **Multiple meters** — register and monitor as many meters as you need under one account
+- **Auth** — email/password login with JWT sessions stored in httpOnly cookies
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Database | PostgreSQL via Prisma 7 |
+| ORM adapter | `@prisma/adapter-pg` |
+| Auth | JWT + bcryptjs |
+| Charts | Recharts |
+| Styling | Tailwind CSS 4 |
+
+## Local Development
+
+### Prerequisites
+
+- Node.js 20+
+- A PostgreSQL database (Neon free tier works great)
+
+### Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# 1. Install dependencies
+npm install
+
+# 2. Copy the env file and fill in your values
+cp .env.example .env
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Edit `.env`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/DATABASE?sslmode=require"
+JWT_SECRET="your-long-random-secret"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 3. Apply database migrations
+npx prisma migrate deploy
 
-## Learn More
+# 4. Start the dev server
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `JWT_SECRET` | Secret used to sign JWT session tokens — use a long random string in production |
 
-## Deploy on Vercel
+## Deployment (Vercel + Neon)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a free PostgreSQL database at [neon.tech](https://neon.tech)
+2. Push this repo to GitHub
+3. Import the repo on [vercel.com](https://vercel.com) — set the **Root Directory** to `disco-app`
+4. Add `DATABASE_URL` and `JWT_SECRET` as environment variables in the Vercel project settings
+5. Deploy — Vercel runs `npm run build` which auto-generates the Prisma client
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Disclaimer
+
+This is an unofficial personal tool. It reads publicly accessible data from the DESCO prepaid API on your behalf. It is not affiliated with or endorsed by DESCO. For official support call **16120**.
