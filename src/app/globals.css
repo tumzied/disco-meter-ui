@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f9fafb;
+  --foreground: #111827;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist, system-ui, -apple-system, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus ring */
+:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Input date/month type consistent height */
+input[type="date"],
+input[type="month"] {
+  appearance: auto;
+}
